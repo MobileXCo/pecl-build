@@ -18,12 +18,13 @@ usage() {
     echo "  -a, --all               build for all php verions phpenv have. when -a used, -j option is ignored."
     echo "  -z, --zend-extension    registerd zend_extensin at ini file generated."
     echo "  --dry                   dry run mode."
+    echo "  --skip-test             skip make test."
     exit 1;
 }
 
 main() {
     script_dir=$(cd $(dirname $0); pwd)
-    opts=`getopt -o hvj:az -l help,verbose,php-version:,all,zend-extension,dry, -- "$@"`
+    opts=`getopt -o hvj:az -l help,verbose,php-version:,all,zend-extension,skip-test,dry, -- "$@"`
     eval set -- "$opts"
     while [ -n "$1" ]; do
         case $1 in
@@ -31,6 +32,7 @@ main() {
             -j|--php-version) phpversion=$2; shift;;
             -a|--all) is_all=1;;
             -z|--zend-extension) is_zend=1;;
+            --skip-test) is_skip_test=1;;
             -v|--verbose) is_verbose=1;;
             --dry) is_dry=1;;
             --) shift; break;;
