@@ -89,6 +89,10 @@ _build_extension() {
         if [ $is_zend ];then
             options="-z $options"
         fi
+        
+        if [ $is_skip_test ];then
+           options="--skip-test $options"
+        fi
 
         info "build $(green $package) on php-$(green $version)"
         run pecl-build $package -p $php_dir/bin/phpize -i $php_dir/bin/php-config $options
